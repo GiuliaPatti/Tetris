@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lan="it">
+<head>
+	<title>Parole in codice</title>
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<!-- <script type="text/javascript" src="assets/script.js"></script> -->
+
+</head>
+<body>
+
+	<div class="indice">
+
+	<p>INDICE</p>
+
+	</div>
+
+	
+
+	<h1>SQUAREWORD</h1>
+	<!-- <a name="SQUAREWORD"></a> -->
+
+	<p class="text">
+		Squareword permette la scrittura di un messaggio <br> attraverso una codifica ad immagini. <br>
+		Ogni lettera è contenuta all'interno di una griglia di 3x3.
+	</p>
+
+	<!-- <select name="cars" id="select_password">
+	  <option value="month">Mese</option>
+	  <option value="day">Giorno della settimana</option>
+	  <option value="hour">Ora del giorno</option>
+	</select> -->
+
+
+	<!-- <div class="tetris">
+		<div>
+			<img class="T" src="assets/img/titolo/alfabeto/T1_2.png">
+		</div>
+		
+	</div> -->
+
+	<div id="input_bar">
+		<select name="cars" id="select_password">
+	  <option value="month">Mese</option>
+	  <option value="day">Giorno della settimana</option>
+	  <option value="hour">Ora del giorno</option>
+	</select>
+		<input type="text"></input>
+		<p class="invia">INVIA</p>
+	</div>
+
+	<!-- <nav>
+
+		<ul class="nav">
+			<li><a href="#SQUAREWORD">SQUAREWORD</a></li>
+
+		</ul> -->
+
+	</nav>
+
+
+	<div id="el1" class="box"></div>
+
+	<script type="text/javascript">
+
+
+
+		function get_day(){
+			let today = new Date();
+			let day = today.getDate();
+			return day
+		}
+
+		function get_month(){
+			let today = new Date();
+			let month = today.getMonth() + 1;
+			return month
+		}
+
+		// function get_hour(){
+		// 	let today = new Date();
+		// 	let hour = today.getHour() + 1;
+		// 	return hour
+		// }
+
+
+		// let day = 1 //get_day();
+
+		const frase =  "abc";
+		let lettere = frase.split("")
+
+
+		// console.log(day)
+		console.log(lettere)
+
+		let alfabeto = [" ","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9","spazio"]
+			
+
+		const output = document.querySelector('.box')
+		const input = document.querySelector('input')
+
+		function shift(alfabeto,lettera,pass_code){
+			let new_letter = ""
+			for (let i=0; i<alfabeto.length; i++) {
+
+				if (alfabeto[i] == lettera) {
+
+					if (lettera == " "){
+						new_letter = "spazio"
+					}
+					else {
+						new_letter = alfabeto[i + pass_code]
+					}
+					console.log(new_letter)
+
+
+				}
+			}
+			return new_letter
+		}
+
+		function to_img(lettere,pass_code) {
+			for (let i=0; i<lettere.length; i++) {
+				let l = shift(alfabeto,lettere[i],pass_code)
+
+				let img = new Image();   // Create new img element
+				img.src = 'assets/img/titolo/figure/' + l + '.png'; // Set source path
+
+				output.appendChild(img);
+				// output.innerHTML += l
+			}
+		}
+
+
+		let parola = "Ciao a TUTTI".toLowerCase()
+
+		input.oninput = function(){
+			let parola = input.value.toLowerCase();
+			let password = document.getElementById("select_password").value;
+
+			let pass_code = 0;
+
+			if (password == "day") {
+				pass_code = get_day();
+			}
+			else if (password == "month") {
+				pass_code = get_month();
+			}
+			// else if (password == "hour") {
+			// 	pass_code = get_hour();
+			// }
+			else {
+				pass_code = 0;
+			}
+
+			console.log(password,pass_code);
+
+			output.innerHTML = ''
+			for (let i=0; i<parola.length; i++) {
+				// output.innerHTML += codice[parola[i]] + ' '
+
+				to_img([parola[i]],pass_code)
+			}
+		}
+
+	</script>
+
+	<!-- <img class="backgroundimg" src="assets/griglia.png"> -->
+
+	<!-- <p class="indice">INDICE</p> -->
+
+</body>
+</html>
